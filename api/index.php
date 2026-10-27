@@ -1,6 +1,6 @@
 <?php
 
-// Buat direktori temporary di /tmp karena sistem file Vercel bersifat Read-Only
+// Buat direktori temporary di /tmp
 $dirs = [
     '/tmp/storage/framework/views',
     '/tmp/storage/framework/cache/data',
@@ -15,7 +15,8 @@ foreach ($dirs as $dir) {
     }
 }
 
-// Alihkan path cache Laravel ke /tmp
+// Alihkan path cache dan log ke /tmp & stderr
+putenv('LOG_CHANNEL=stderr');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
