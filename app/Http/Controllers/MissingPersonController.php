@@ -83,7 +83,14 @@ class MissingPersonController extends Controller
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/missing'), $filename);
+            
+            // Simpan ke direktori temporary /tmp untuk menghindari read-only filesystem Vercel
+            $targetPath = '/tmp/uploads/missing';
+            if (!file_exists($targetPath)) {
+                mkdir($targetPath, 0777, true);
+            }
+
+            $file->move($targetPath, $filename);
             $photoPath = '/uploads/missing/' . $filename;
         }
 
