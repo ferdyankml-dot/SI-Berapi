@@ -1,6 +1,5 @@
 <?php
 
-// Buat direktori temporary di /tmp
 $dirs = [
     '/tmp/storage/framework/views',
     '/tmp/storage/framework/cache/data',
@@ -15,11 +14,13 @@ foreach ($dirs as $dir) {
     }
 }
 
-// Alihkan direktori storage utama & log ke /tmp
+// Paksa log ke stderr dan storage ke /tmp
+putenv('LOG_CHANNEL=stderr');
+$_ENV['LOG_CHANNEL'] = 'stderr';
+
 putenv('APP_STORAGE=/tmp/storage');
 $_ENV['APP_STORAGE'] = '/tmp/storage';
 
-putenv('LOG_CHANNEL=stderr');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
