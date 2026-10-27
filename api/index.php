@@ -15,7 +15,10 @@ foreach ($dirs as $dir) {
     }
 }
 
-// Alihkan path cache dan log ke /tmp & stderr
+// Alihkan direktori storage utama & log ke /tmp
+putenv('APP_STORAGE=/tmp/storage');
+$_ENV['APP_STORAGE'] = '/tmp/storage';
+
 putenv('LOG_CHANNEL=stderr');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
